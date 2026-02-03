@@ -1,0 +1,225 @@
+/* ===============================
+   GLOBAL RESET & BASE
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===============================
+   CONTAINER / CARD
+================================ */
+.container {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+    padding: 30px 28px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Large container (tables, admin pages) */
+.container-wide {
+    width: 90%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ===============================
+   HEADINGS & TEXT
+================================ */
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #1f2933;
+    font-weight: 600;
+}
+
+p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* ===============================
+   FORMS
+================================ */
+form {
+    margin-top: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background: #fff;
+    color: #111;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+/* Secondary buttons */
+.btn-secondary {
+    background: #374151;
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* ===============================
+   LINKS / NAV
+================================ */
+a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.nav a {
+    color: #2563eb;
+    font-size: 14px;
+}
+
+/* ===============================
+   TABLES (ADMIN)
+================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #fff;
+    color: #111;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background: #1f2933;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f3f4f6;
+}
+
+tbody tr:hover {
+    background: #e5e7eb;
+}
+
+/* Status badges */
+.status-available {
+    color: #065f46;
+    font-weight: 600;
+}
+
+.status-booked {
+    color: #991b1b;
+    font-weight: 600;
+}
+
+/* ===============================
+   ALERTS / MESSAGES
+================================ */
+.success {
+    background: #dcfce7;
+    color: #065f46;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 480px) {
+    .container, .container-wide {
+        padding: 22px;
+    }
+}
