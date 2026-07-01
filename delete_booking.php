@@ -25,9 +25,16 @@ if ($id && ctype_digit((string)$id)) {
     $del->execute();
 
     if ($booking) {
-        $freeRoom = $conn->prepare("UPDATE rooms SET status = 'available' WHERE id = ?");
-        $freeRoom->bind_param("i", $booking['room_id']);
-        $freeRoom->execute();
+        $remaining = $conn->prepare("SELECT COUNT(*) AS cnt FROM bookings WHERE room_id = ?");
+        $remaining->bind_param("i", $booking['room_id']);
+        $remaining->execute();
+        $count = $remaining->get_result()->fetch_assoc()['cnt'];
+
+        if ($count === 0) {
+            $freeRoom = $conn->prepare("UPDATE rooms SET status = 'available' WHERE id = ?");
+            $freeRoom->bind_param("i", $booking['room_id']);
+            $freeRoom->execute();
+        }
     }
 }
 

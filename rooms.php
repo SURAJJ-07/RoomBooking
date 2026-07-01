@@ -18,6 +18,11 @@ $result = $conn->query("SELECT * FROM rooms");
 <body>
 <div class="container-wide">
 <h2>Rooms</h2>
+
+<?php if (isset($_GET['error']) && $_GET['error'] === 'has_bookings'): ?>
+    <p class="error">Cannot delete this room - it has existing bookings. Delete those bookings first.</p>
+<?php endif; ?>
+
 <table>
 <tr>
     <th>ID</th>

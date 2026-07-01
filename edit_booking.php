@@ -24,12 +24,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($name === '' || !ctype_digit($room_id) || !preg_match('/^[0-9]{10}$/', $contact) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkin)) {
         $message = "Please fill all fields correctly (10-digit contact, valid date)";
     } else {
+        $old = $conn->prepare("SELECT room_id FROM bookings WHERE id = ?");
+        $old->bind_param("i", $id);
+        $old->execute();
+        $oldRoomId = $old->get_result()->fetch_assoc()['room_id'];
+
         $stmt = $conn->prepare(
             "UPDATE bookings SET name = ?, room_id = ?, contact = ?, checkin_date = ? WHERE id = ?"
         );
         $stmt->bind_param("sissi", $name, $room_id, $contact, $checkin, $id);
 
         if ($stmt->execute()) {
+            $newStatus = $conn->prepare("UPDATE rooms SET status = 'booked' WHERE id = ?");
+            $newStatus->bind_param("i", $room_id);
+            $newStatus->execute();
+
+            if ($oldRoomId != $room_id) {
+                $check = $conn->prepare("SELECT COUNT(*) AS cnt FROM bookings WHERE room_id = ?");
+                $check->bind_param("i", $oldRoomId);
+                $check->execute();
+                $count = $check->get_result()->fetch_assoc()['cnt'];
+
+                if ($count === 0) {
+                    $freeOld = $conn->prepare("UPDATE rooms SET status = 'available' WHERE id = ?");
+                    $freeOld->bind_param("i", $oldRoomId);
+                    $freeOld->execute();
+                }
+            }
+
             header("Location: bookings.php");
             exit;
         } else {
