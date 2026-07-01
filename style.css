@@ -15,6 +15,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 24px;
 }
 
 /* ===============================
@@ -23,22 +24,29 @@ body {
 .container {
     width: 100%;
     max-width: 420px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.97);
     color: #222;
-    padding: 30px 28px;
-    border-radius: 14px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    padding: 36px 32px;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.35s ease;
 }
 
 /* Large container (tables, admin pages) */
 .container-wide {
     width: 90%;
     max-width: 1000px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.97);
     color: #222;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    padding: 34px;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ===============================
@@ -46,13 +54,17 @@ body {
 ================================ */
 h1, h2, h3 {
     text-align: center;
-    margin-bottom: 18px;
-    color: #1f2933;
-    font-weight: 600;
+    margin-bottom: 22px;
+    color: #111827;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
+h1 { font-size: 26px; }
+h2 { font-size: 21px; }
+
 p {
-    color: #444;
+    color: #4b5563;
     font-size: 14px;
     line-height: 1.6;
     text-align: center;
@@ -62,36 +74,43 @@ p {
    FORMS
 ================================ */
 form {
-    margin-top: 15px;
+    margin-top: 4px;
 }
 
 label {
     display: block;
     margin-bottom: 6px;
+    margin-top: 14px;
     font-size: 13px;
     font-weight: 600;
-    color: #333;
+    color: #374151;
+}
+
+label:first-of-type {
+    margin-top: 0;
 }
 
 input, select {
     width: 100%;
-    padding: 11px 12px;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 11px 14px;
+    margin-bottom: 4px;
+    border-radius: 10px;
+    border: 1.5px solid #e5e7eb;
     font-size: 14px;
-    background: #fff;
+    background: #f9fafb;
     color: #111;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 input::placeholder {
-    color: #888;
+    color: #9ca3af;
 }
 
 input:focus, select:focus {
     outline: none;
     border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 /* ===============================
@@ -99,7 +118,8 @@ input:focus, select:focus {
 ================================ */
 button {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
+    margin-top: 18px;
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: #fff;
     border: none;
@@ -107,12 +127,17 @@ button {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.05);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 /* Secondary buttons */
@@ -121,7 +146,7 @@ button:hover {
 }
 
 .btn-secondary:hover {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
 /* ===============================
@@ -130,7 +155,7 @@ button:hover {
 a {
     color: #2563eb;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 a:hover {
@@ -139,14 +164,25 @@ a:hover {
 
 .nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 18px;
-    margin-top: 15px;
+    gap: 10px;
+    margin-top: 22px;
 }
 
 .nav a {
-    color: #2563eb;
-    font-size: 14px;
+    color: #1d4ed8;
+    font-size: 13px;
+    background: #eef2ff;
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.nav a:hover {
+    background: #dbeafe;
+    text-decoration: none;
+    transform: translateY(-1px);
 }
 
 /* ===============================
@@ -155,41 +191,62 @@ a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-top: 18px;
     background: #fff;
     color: #111;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 thead {
-    background: #1f2933;
+    background: #111827;
     color: #fff;
 }
 
 th, td {
-    padding: 12px 14px;
+    padding: 13px 16px;
     text-align: left;
     font-size: 14px;
 }
 
+th {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.12s ease;
+}
+
 tbody tr:nth-child(even) {
-    background: #f3f4f6;
+    background: #f8fafc;
 }
 
 tbody tr:hover {
-    background: #e5e7eb;
+    background: #eef2ff;
 }
 
 /* Status badges */
 .status-available {
     color: #065f46;
-    font-weight: 600;
+    font-weight: 700;
+    background: #d1fae5;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
 }
 
 .status-booked {
     color: #991b1b;
-    font-weight: 600;
+    font-weight: 700;
+    background: #fee2e2;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
 }
 
 /* ===============================
@@ -198,21 +255,23 @@ tbody tr:hover {
 .success {
     background: #dcfce7;
     color: #065f46;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
     text-align: center;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .error {
     background: #fee2e2;
     color: #991b1b;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
     text-align: center;
     font-size: 14px;
+    font-weight: 600;
 }
 
 /* ===============================
@@ -220,6 +279,16 @@ tbody tr:hover {
 ================================ */
 @media (max-width: 480px) {
     .container, .container-wide {
-        padding: 22px;
+        padding: 26px 22px;
+    }
+
+    h1 { font-size: 22px; }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 10px 8px;
     }
 }
