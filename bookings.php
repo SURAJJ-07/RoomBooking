@@ -9,7 +9,8 @@ if (!isset($_SESSION['admin'])) {
 
 $sql = "SELECT b.*, r.room_type
         FROM bookings b
-        JOIN rooms r ON b.room_id = r.id";
+        JOIN rooms r ON b.room_id = r.id
+        ORDER BY b.id DESC";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -27,6 +28,7 @@ $result = $conn->query($sql);
     <th>Room</th>
     <th>Contact</th>
     <th>Check-in</th>
+    <th>Actions</th>
 </tr>
 <?php while($row = $result->fetch_assoc()): ?>
 <tr>
@@ -34,6 +36,13 @@ $result = $conn->query($sql);
     <td><?= htmlspecialchars($row['room_type']) ?></td>
     <td><?= htmlspecialchars($row['contact']) ?></td>
     <td><?= htmlspecialchars($row['checkin_date']) ?></td>
+    <td>
+        <a href="edit_booking.php?id=<?= htmlspecialchars($row['id']) ?>">Edit</a>
+        <form action="delete_booking.php" method="POST" style="display:inline" onsubmit="return confirm('Delete this booking?');">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']) ?>">
+            <button type="submit">Delete</button>
+        </form>
+    </td>
 </tr>
 <?php endwhile; ?>
 </table>
