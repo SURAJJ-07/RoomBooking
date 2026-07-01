@@ -3,7 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-require_once "../db.php";
+require_once "db.php";
+
+if (!isset($_SESSION['admin'])) {
+    header("Location: login.php");
+    exit;
+}
 
 $message = "";
 
@@ -32,15 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Add Room</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container small">
+<div class="container">
     <h2>Add Room</h2>
 
     <?php if ($message): ?>
-        <p class="msg"><?= htmlspecialchars($message) ?></p>
+        <p class="success"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
     <form method="POST">
@@ -49,6 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="number" name="price" placeholder="Price" required>
         <button type="submit">Add Room</button>
     </form>
+
+    <div class="nav">
+        <a href="index.php">Back to Panel</a>
+    </div>
 </div>
 
 </body>

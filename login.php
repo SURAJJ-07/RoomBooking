@@ -3,7 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-require_once "../db.php";
+require_once "db.php";
+
+if (isset($_SESSION['admin'])) {
+    header("Location: index.php");
+    exit;
+}
 
 $error = "";
 
@@ -29,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($result->num_rows === 1) {
             $_SESSION['admin'] = $username;
-            header("Location: dashboard.php");
+            header("Location: index.php");
             exit;
         } else {
             $error = "Invalid login details";
@@ -42,15 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Admin Login</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card">
+<div class="container">
     <h2>Admin Login</h2>
 
     <?php if ($error): ?>
-        <p class="error"><?= $error ?></p>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
     <form method="POST">
@@ -58,6 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
+
+    <div class="nav">
+        <a href="index.php">Back to Home</a>
+    </div>
 </div>
 
 </body>
