@@ -8,26 +8,39 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     die("Invalid request");
 }
 
-$name      = $_POST['name'];
-$room_id   = $_POST['room_id'];
-$contact   = $_POST['contact'];
-$checkin   = $_POST['checkin_date'];
+$name    = trim($_POST['name'] ?? '');
+$room_id = trim($_POST['room_id'] ?? '');
+$contact = trim($_POST['contact'] ?? '');
+$checkin = trim($_POST['checkin_date'] ?? '');
 
-/* Insert booking */
-$insert = mysqli_query($conn,
-    "INSERT INTO bookings (name, room_id, contact, checkin_date)
-     VALUES ('$name', '$room_id', '$contact', '$checkin')"
-);
-
-if (!$insert) {
-    die("Booking failed: " . mysqli_error($conn));
+if ($name === '' || $room_id === '' || $contact === '' || $checkin === '') {
+    die("All fields are required");
 }
 
-/* Mark room as booked */
-mysqli_query($conn,
-    "UPDATE rooms SET status='booked' WHERE id='$room_id'"
-);
+if (!ctype_digit($room_id)) {
+    die("Invalid room selected");
+}
 
-/* Redirect to success page */
+if (!preg_match('/^[0-9]{10}$/', $contact)) {
+    die("Contact number must be exactly 10 digits");
+}
+
+if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkin)) {
+    die("Invalid check-in date");
+}
+
+$stmt = $conn->prepare(
+    "INSERT INTO bookings (name, room_id, contact, checkin_date) VALUES (?, ?, ?, ?)"
+);
+$stmt->bind_param("siss", $name, $room_id, $contact, $checkin);
+
+if (!$stmt->execute()) {
+    die("Booking failed: " . $stmt->error);
+}
+
+$update = $conn->prepare("UPDATE rooms SET status = 'booked' WHERE id = ?");
+$update->bind_param("i", $room_id);
+$update->execute();
+
 header("Location: booking_success.php");
 exit;
