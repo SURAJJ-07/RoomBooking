@@ -292,3 +292,27 @@ tbody tr:hover {
         padding: 10px 8px;
     }
 }
+
+/* ===============================
+   INLINE TABLE ACTIONS
+================================ */
+td form {
+    display: inline;
+}
+
+td a {
+    margin-right: 10px;
+}
+
+td button {
+    width: auto;
+    padding: 6px 12px;
+    margin: 0;
+    font-size: 12px;
+    background: #dc2626;
+}
+
+td button:hover {
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35);
+    transform: none;
+}

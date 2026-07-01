@@ -25,6 +25,7 @@ $result = $conn->query("SELECT * FROM rooms");
     <th>Price</th>
     <th>Address</th>
     <th>Status</th>
+    <th>Actions</th>
 </tr>
 <?php while($row = $result->fetch_assoc()): ?>
 <tr>
@@ -33,6 +34,13 @@ $result = $conn->query("SELECT * FROM rooms");
     <td><?= htmlspecialchars($row['price']) ?></td>
     <td><?= htmlspecialchars($row['address']) ?></td>
     <td class="status-<?= htmlspecialchars($row['status']) ?>"><?= htmlspecialchars($row['status']) ?></td>
+    <td>
+        <a href="edit_room.php?id=<?= htmlspecialchars($row['id']) ?>">Edit</a>
+        <form action="delete_room.php" method="POST" style="display:inline" onsubmit="return confirm('Delete this room?');">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($row['id']) ?>">
+            <button type="submit">Delete</button>
+        </form>
+    </td>
 </tr>
 <?php endwhile; ?>
 </table>
