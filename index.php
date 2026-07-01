@@ -27,6 +27,7 @@ $isAdmin = isset($_SESSION['admin']);
             <button type="submit">Check Available Rooms</button>
         </form>
         <div class="nav">
+            <a href="search.php">Search Rooms</a>
             <a href="login.php">Admin Login</a>
         </div>
     <?php endif; ?>
