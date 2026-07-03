@@ -16,15 +16,12 @@ $checkin = trim($_POST['checkin_date'] ?? '');
 if ($name === '' || $room_id === '' || $contact === '' || $checkin === '') {
     die("All fields are required");
 }
-
 if (!ctype_digit($room_id)) {
     die("Invalid room selected");
 }
-
 if (!preg_match('/^[0-9]{10}$/', $contact)) {
     die("Contact number must be exactly 10 digits");
 }
-
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkin)) {
     die("Invalid check-in date");
 }
@@ -34,9 +31,7 @@ if ($checkin < $today) {
     die("Check-in date cannot be in the past");
 }
 
-$stmt = $conn->prepare(
-    "INSERT INTO bookings (name, room_id, contact, checkin_date) VALUES (?, ?, ?, ?)"
-);
+$stmt = $conn->prepare("INSERT INTO bookings (name, room_id, contact, checkin_date) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("siss", $name, $room_id, $contact, $checkin);
 
 if (!$stmt->execute()) {

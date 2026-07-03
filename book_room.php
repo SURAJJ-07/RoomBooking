@@ -17,8 +17,7 @@ $result = mysqli_query($conn,
             const option = select.options[select.selectedIndex];
             const price = option.dataset.price;
             const address = option.dataset.address;
-            document.getElementById("priceBox").innerText =
-                "Price: Rs " + price + "  |  Address: " + address;
+            document.getElementById("priceBox").innerText = "Price: Rs " + price + "  |  Address: " + address;
         }
     </script>
 </head>
