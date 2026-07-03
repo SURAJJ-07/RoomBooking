@@ -29,6 +29,11 @@ if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkin)) {
     die("Invalid check-in date");
 }
 
+$today = date('Y-m-d');
+if ($checkin < $today) {
+    die("Check-in date cannot be in the past");
+}
+
 $stmt = $conn->prepare(
     "INSERT INTO bookings (name, room_id, contact, checkin_date) VALUES (?, ?, ?, ?)"
 );

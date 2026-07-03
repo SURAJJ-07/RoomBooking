@@ -2,7 +2,7 @@
 require_once "db.php";
 
 $result = mysqli_query($conn,
-    "SELECT id, room_type, price FROM rooms WHERE status='available'"
+    "SELECT id, room_type, address, price FROM rooms WHERE status='available'"
 );
 ?>
 
@@ -14,8 +14,11 @@ $result = mysqli_query($conn,
     <script>
         function showPrice() {
             const select = document.getElementById("room_id");
-            const price = select.options[select.selectedIndex].dataset.price;
-            document.getElementById("priceBox").innerText = "Price: Rs " + price;
+            const option = select.options[select.selectedIndex];
+            const price = option.dataset.price;
+            const address = option.dataset.address;
+            document.getElementById("priceBox").innerText =
+                "Price: Rs " + price + "  |  Address: " + address;
         }
     </script>
 </head>
@@ -35,8 +38,9 @@ $result = mysqli_query($conn,
             <?php while($row = mysqli_fetch_assoc($result)): ?>
                 <option
                     value="<?= htmlspecialchars($row['id']); ?>"
-                    data-price="<?= htmlspecialchars($row['price']); ?>">
-                    <?= htmlspecialchars($row['room_type']); ?>
+                    data-price="<?= htmlspecialchars($row['price']); ?>"
+                    data-address="<?= htmlspecialchars($row['address']); ?>">
+                    <?= htmlspecialchars($row['room_type']); ?> - <?= htmlspecialchars($row['address']); ?>
                 </option>
             <?php endwhile; ?>
         </select>
@@ -44,7 +48,7 @@ $result = mysqli_query($conn,
         <p id="priceBox" style="font-weight:bold;"></p>
 
         <label>Check-in Date</label>
-        <input type="date" name="checkin_date" required>
+        <input type="date" name="checkin_date" min="<?= date('Y-m-d') ?>" required>
 
         <label>Contact Number</label>
         <input type="text" name="contact" pattern="[0-9]{10}" maxlength="10" required>
